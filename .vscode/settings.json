@@ -1,0 +1,7 @@
+{
+  "eslint.alwaysShowStatus": true,
+  "emmet.excludeLanguages": ["markdown"],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
+}
