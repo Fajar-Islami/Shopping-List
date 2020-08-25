@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
   Collapse,
   Navbar,
@@ -9,10 +9,19 @@ import {
   NavLink,
   Container
 } from 'reactstrap';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
+import Logout from './auth/Logout';
 
 class AppNavbar extends Component {
   state = {
     isOpen: false
+  }
+
+  static propTypes = {
+    auth: PropTypes.object.isRequired
   }
 
   toggle = () => {
@@ -22,6 +31,33 @@ class AppNavbar extends Component {
   }
 
   render() {
+    const { isAuthenticated, user } = this.props.auth
+    // Navbar Klo login
+    const authLinks = (
+      <Fragment>
+        <NavItem>
+          <span className="navbar-text mr-3">
+            <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+          </span>
+        </NavItem>
+        <NavItem>
+          <Logout />
+        </NavItem>
+      </Fragment>
+    )
+
+    // Navbar Klo tanpa login
+    const guestLinks = (
+      <Fragment>
+        <NavItem>
+          <RegisterModal />
+        </NavItem>
+        <NavItem>
+          <LoginModal />
+        </NavItem>
+      </Fragment>
+    )
+
     return (
       <div>
         {/* dark ke-2 supaya tulisan putih  */}
@@ -32,11 +68,7 @@ class AppNavbar extends Component {
             {/* memberitahukan ini navbar */}
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="https://github.com/bradtraversy">
-                    GitHub
-                  </NavLink>
-                </NavItem>
+                {isAuthenticated ? authLinks : guestLinks}
               </Nav>
             </Collapse>
           </Container>
@@ -46,4 +78,10 @@ class AppNavbar extends Component {
   }
 }
 
-export default AppNavbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, null)(AppNavbar);
+
+

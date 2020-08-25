@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://fajarMERN:fajar2000@cluster0.349yq.mongodb.net/mern_shopping?retryWrites=true&w=majority",
+  "jwtSecret": "sl_myJwtSecret"
+}
