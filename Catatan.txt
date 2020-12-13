@@ -1,0 +1,113 @@
+Backend
+//install
+npm i express body-parser mongoose concurrently
+npm i -D nodemon
+
+concurrently ==> supaya bisa jalanin 2 npm
+
+FrontEnd (dalam folder client)
+create-react-app .
+npm i bootstrap reactstrap uuid react-transition-group
+npm i redux react-redux redux-thunk
+npm i axios ==> fetch data dari API
+
+uuid = buat random id (opsional)
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Ketika full stack, package.json client(react)
+ditambah dipaling bawah
+"proxy":"http://localhost:5000"  ====> (5000 disesuaikan port)
+
+
+liat di package.json (dalam folder mern_shopping_list)
+npm run dev ==> menjalankan server dan client
+"client-install":"npm install --prefix client",
+Kalo mau tarok di github, supaya langsung ada node_modules didalam client klo mau klone app kita
+
+https://reactstrap.github.io/ ==> dokumentasi
+
+/////////
+Tranisisi liat components/shoppinglist.jsx
+cssnya App.css
+
+
+
+Cara deploy
+Klo Front End(web statis) ==> npm run build (liat package.json)
+
+BackEnd, package.json di script tambah
+"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+NPM_CONFIG_PRODUCTION=false ==> alasannya karena gk bisa jalanin run build kalo dalam production
+*prefix = masuk kedalam folder client
+
+BackEnd
+install heroku
+cmd ==> heroku login
+buat aplikasi baru heroku ==> heroku create
+buat web heroku untuk liat cara upload
+
+git init
+git add .
+git commit -am "Version 1.0.0"
+heroku git:remote -a app-mern-shopping-list
+git push heroku master
+
+
+////Video 9
+npm i bcryptjs ==> untuk hash password
+
+// JWT
+untuk membuat token, untuk daftar
+npm i jsonwebtoken
+
+untuk security mongoDB key.js dalam folder config
+npm i config
+
+buat folder default.json dalam folder config
+delete key..js
+
+autentikasi user video 9, dalam file auth.js
+
+membuat middleware sendiri di folder middleware
+
+autentikasi di item.js ketika post dan delete, di parameter ke2
+
+current user video 9
+file auth.js dalam folder routes/api
+tambah const auth = require('../../middleware/auth.js');
+
+
+////////////////
+400 = bad status
+401 = unauthorized
+
+////////////
+Cara konek redux (dari video 12 login)
+//pertama import 
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+
+
+//export default diubah
+export default connect(state global(subscription) ,dispatch)(Counter);
+
+
+// memanggil state dari reducer (dibawah)
+const mapStateToProps = (state) => ({
+  item: state.item
+  // state.item ==> item karena dipanggil memlalui reducer/index.jsx
+});
+
+
+//buat static propTypes (diatas
+static propTypes = {
+    auth: PropTypes.object.isRequired
+ }
+
+
+// panggil state global di reducer (sebelum return)
+const {isAuthenticated,user} = this.props.auth
+
+
+//////
+mengatur tampilan hak akses di shopping list, navbar
